@@ -1,0 +1,26 @@
+server:
+  port: 8850
+spring:
+  application:
+    name: uaa
+  config:
+    activate:
+      on-profile: local
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:mysql://1.117.69.118:3306/zephyr
+    username: root
+    password: Zephyr@0812
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 1.117.69.118:8848
+        username: nacos
+        password: zhang19970812
+#logging:
+#  level:
+#    ROOT: DEBUG
+#    com.zephyr.uaa: DEBUG

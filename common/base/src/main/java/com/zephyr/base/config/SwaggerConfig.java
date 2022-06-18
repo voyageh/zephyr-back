@@ -1,4 +1,4 @@
-package com.zephyr.base;
+package com.zephyr.base.config;
 
 import com.google.common.base.Predicates;
 import io.swagger.annotations.Api;
@@ -23,7 +23,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class)) // @Api注解类
-                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class)) //@ApiOperation注解方法
+//                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class)) //@ApiOperation注解方法
                 .paths(PathSelectors.any())
                 .build();
     }

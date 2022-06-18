@@ -20,6 +20,10 @@ spring:
         server-addr: 1.117.69.118:8848
         username: nacos
         password: zhang19970812
+  redis:
+    port: 9302
+    host: 1.117.69.118
+    password: zhang19970812
 #logging:
 #  level:
 #    ROOT: DEBUG

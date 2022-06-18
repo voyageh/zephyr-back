@@ -23,7 +23,7 @@
     <dependencies>
         <dependency>
             <groupId>com.zephyr</groupId>
-            <artifactId>base</artifactId>
+            <artifactId>security</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!-- web配置 -->

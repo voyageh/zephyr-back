@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +24,11 @@ public class UserController {
 
     @Value("${server.port}")
     private String prot;
-
     @Autowired
     private UserService userService;
+    @Autowired
+    private RedisTemplate redisTemplate;
+
 
     @ApiOperation(value = "用户注册")
     @PostMapping("/register")
@@ -38,11 +41,12 @@ public class UserController {
     @PostMapping("/login")
     public ReturnResultDTO<?> login(@RequestBody @Validated LoginDTO loginDTO) {
         HashMap<String, Object> token = userService.login(loginDTO.getUserName(), loginDTO.getPassword());
-        return new ReturnResultDTO("200",token);
+        return new ReturnResultDTO("200", token);
     }
 
     @GetMapping("/hello")
     public String hello() {
+        redisTemplate.opsForValue().set("user", "kkkk");
         return this.prot;
     }
 }

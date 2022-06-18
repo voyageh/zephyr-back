@@ -1,7 +1,7 @@
 package com.zephyr.uaa.service.basic;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zephyr.base.utils.JWTUtils;
+import com.zephyr.security.utils.JWTUtils;
 import com.zephyr.uaa.entity.basic.User;
 import com.zephyr.uaa.mapper.basic.UserMapper;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,7 @@
 package com.zephyr.uaa.controller.basic;
 
 import com.zephyr.base.constant.ReturnResultDTO;
+import com.zephyr.base.utils.RedisUtils;
 import com.zephyr.uaa.dto.request.basic.CreateUserDTO;
 import com.zephyr.uaa.dto.request.basic.LoginDTO;
 import com.zephyr.uaa.service.basic.UserService;
@@ -9,7 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +27,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisUtils redisUtils;
 
 
     @ApiOperation(value = "用户注册")
@@ -41,12 +41,12 @@ public class UserController {
     @PostMapping("/login")
     public ReturnResultDTO<?> login(@RequestBody @Validated LoginDTO loginDTO) {
         HashMap<String, Object> token = userService.login(loginDTO.getUserName(), loginDTO.getPassword());
-        return new ReturnResultDTO("200", token);
+        return new ReturnResultDTO<>("200", token);
     }
 
     @GetMapping("/hello")
     public String hello() {
-        redisTemplate.opsForValue().set("user", "kkkk");
+        redisUtils.set("user", "kkkk");
         return this.prot;
     }
 }

@@ -24,10 +24,14 @@ public class UserController {
 
     @Value("${server.port}")
     private String prot;
-    @Autowired
     private UserService userService;
-    @Autowired
     private RedisUtils redisUtils;
+
+    @Autowired
+    public UserController(UserService userService, RedisUtils redisUtils) {
+        this.userService = userService;
+        this.redisUtils = redisUtils;
+    }
 
 
     @ApiOperation(value = "用户注册")

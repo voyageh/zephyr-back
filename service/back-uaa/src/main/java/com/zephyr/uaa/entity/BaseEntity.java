@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
 
 import java.time.ZonedDateTime;
 
+@Data
 public class BaseEntity {
     @TableId(value = "ID", type = IdType.ASSIGN_UUID)
     private String id;

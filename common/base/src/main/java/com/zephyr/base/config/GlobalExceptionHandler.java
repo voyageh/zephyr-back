@@ -19,15 +19,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.zephyr.base.constant.ReturnCode.VALIDATION_ERROR;
-import static com.zephyr.base.constant.ReturnCode.RUNTIME_EXCEPTION;
+import static com.zephyr.base.constant.ResultCode.RUNTIME_EXCEPTION;
+import static com.zephyr.base.constant.ResultCode.VALIDATION_ERROR;
 
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
-
-    @Autowired
-    private MessageSource messageSource;
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleMedhodArgsValidata(MethodArgumentNotValidException exception) {

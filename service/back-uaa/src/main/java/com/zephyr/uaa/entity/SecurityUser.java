@@ -1,8 +1,5 @@
-package com.zephyr.uaa.entity.basic;
+package com.zephyr.uaa.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.zephyr.uaa.entity.BaseEntity;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,13 +7,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 @Data
-@TableName("basic_user")
-public class User extends BaseEntity implements UserDetails {
-    @TableField("user_name")
-    private String userName;
-    private String password;
-    private String tel;
-    private String email;
+public class SecurityUser implements UserDetails {
+
+    //当前登录用户
+    private transient User currentUserInfo;
+
+    public SecurityUser(User user) {
+        this.currentUserInfo = user;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -24,8 +23,13 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     @Override
+    public String getPassword() {
+        return currentUserInfo.getPassword();
+    }
+
+    @Override
     public String getUsername() {
-        return userName;
+        return currentUserInfo.getUserName();
     }
 
     @Override
@@ -45,6 +49,6 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return !this.getStatus().equals("2");
+        return !currentUserInfo.getStatus().equals("2");
     }
 }

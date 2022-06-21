@@ -9,20 +9,45 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResultDTO<T> implements java.io.Serializable {
-    private String code;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private long code;
     private T data;
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String message;
 
-    public ResultDTO(String code, T data) {
+    public ResultDTO(long code, T data) {
         this.code = code;
         this.data = data;
     }
 
-    public ResultDTO(String code, String message) {
-        this.code = code;
-        this.message = message;
+    public static <T> ResultDTO<T> success(T data) {
+        return new ResultDTO<>(ResultCode.SUCCESS.getCode(), data);
+    }
+
+    public static <T> ResultDTO<T> success(T data, String message) {
+        return new ResultDTO<>(ResultCode.SUCCESS.getCode(), data, message);
+    }
+
+    public static <T> ResultDTO<T> failed(IErrorCode errorCode) {
+        return new ResultDTO<>(errorCode.getCode(), null, errorCode.getMessage());
+    }
+
+    public static <T> ResultDTO<T> failed(String message) {
+        return new ResultDTO<>(ResultCode.FAILED.getCode(), null, message);
+    }
+
+
+    /**
+     * 未登录或token失效
+     */
+    public static <T> ResultDTO<T> unauthorized(T data) {
+        return new ResultDTO<>(ResultCode.UNAUTHORIZED.getCode(), data, ResultCode.UNAUTHORIZED.getMessage());
+    }
+
+    /**
+     * 没有相关权限
+     */
+    public static <T> ResultDTO<T> forbidden(T data) {
+        return new ResultDTO<>(ResultCode.FORBIDDEN.getCode(), data, ResultCode.FORBIDDEN.getMessage());
     }
 }

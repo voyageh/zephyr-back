@@ -1,4 +1,4 @@
-package com.zephyr.uaa.entity;
+package com.zephyr.base.constant;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;

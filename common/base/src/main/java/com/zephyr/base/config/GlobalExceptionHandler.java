@@ -1,7 +1,7 @@
 package com.zephyr.base.config;
 
 import com.zephyr.base.constant.ResultDTO;
-import com.zephyr.base.exception.ValidationException;
+import com.zephyr.base.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -73,8 +73,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ResultDTO<>(VALIDATION_ERROR.getCode(), mapList), HttpStatus.OK);
     }
 
-    @ExceptionHandler(value = ValidationException.class)
-    public ResponseEntity<?> handleValidationException(ValidationException e) {
+    @ExceptionHandler(value = BizException.class)
+    public ResponseEntity<?> handleValidationException(BizException e) {
         log.error("ValidationException：", e);
         String errorMessage = e.getErrorMessage();
         return new ResponseEntity<>(new ResultDTO<>(VALIDATION_ERROR.getCode(), errorMessage), HttpStatus.OK);

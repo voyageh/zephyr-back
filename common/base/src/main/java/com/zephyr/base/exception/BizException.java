@@ -6,7 +6,7 @@ import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
-public class ValidationException extends RuntimeException {
+public class BizException extends RuntimeException {
     @NonNull
     private String errorMessage;
 }

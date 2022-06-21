@@ -2,6 +2,7 @@ package com.zephyr.security.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.util.Calendar;
@@ -11,7 +12,7 @@ public class JWTUtils {
     // token 过期时间24小时
     private static int EXPIRETIME = 60 * 24;
     // token secret
-    private static String SIGN = "JIAH@31)SJA";
+    private static final String SIGN = "JIAH@31)SJA";
     public static String TYPE = "Bearer";
     public static String AUTHORIZATION = "Authorization";
 
@@ -28,11 +29,16 @@ public class JWTUtils {
         return map;
     }
 
-    public static DecodedJWT verifyToken(String token) {
-        return JWT.require(Algorithm.HMAC256(SIGN)).build().verify(token);
+    public static boolean verifyToken(String token) {
+        try {
+            JWT.require(Algorithm.HMAC256(SIGN)).build().verify(token);
+            return true;
+        } catch (JWTVerificationException e) {
+            return false;
+        }
     }
 
     public static String getUserName(String token) {
-        return JWT.decode(token).getAudience().get(0);
+        return JWT.decode(token).getSubject();
     }
 }

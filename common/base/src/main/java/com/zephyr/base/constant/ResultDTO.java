@@ -36,6 +36,14 @@ public class ResultDTO<T> implements java.io.Serializable {
         return new ResultDTO<>(ResultCode.FAILED.getCode(), null, message);
     }
 
+    public static <T> ResultDTO<T> validateFailed(String message) {
+        return new ResultDTO<>(ResultCode.VALIDATION_ERROR.getCode(), null, message);
+    }
+
+    public static <T> ResultDTO<T> validateFailed(T data) {
+        return new ResultDTO<>(ResultCode.VALIDATION_ERROR.getCode(), data, null);
+    }
+
 
     /**
      * 未登录或token失效

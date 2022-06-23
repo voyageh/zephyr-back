@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
             mapList.add(errorMap);
         });
 
-        return new ResponseEntity<>(new ResultDTO<>(VALIDATION_ERROR.getCode(), mapList), HttpStatus.OK);
+        return new ResponseEntity<>(ResultDTO.validateFailed(mapList), HttpStatus.OK);
     }
 
     @ExceptionHandler(value = BindException.class)
@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
             errorMap.put("errorMessage", errorMessage);
             mapList.add(errorMap);
         });
-        return new ResponseEntity<>(new ResultDTO<>(VALIDATION_ERROR.getCode(), mapList), HttpStatus.OK);
+        return new ResponseEntity<>(ResultDTO.validateFailed(mapList), HttpStatus.OK);
     }
 
     @ExceptionHandler(value = ConstraintViolationException.class)
@@ -67,14 +67,14 @@ public class GlobalExceptionHandler {
             errorMap.put("errorMessage", errorMessage);
             mapList.add(errorMap);
         });
-        return new ResponseEntity<>(new ResultDTO<>(VALIDATION_ERROR.getCode(), mapList), HttpStatus.OK);
+        return new ResponseEntity<>(ResultDTO.validateFailed(mapList), HttpStatus.OK);
     }
 
     @ExceptionHandler(value = BizException.class)
-    public ResponseEntity<?> handleValidationException(BizException e) {
-        log.error("ValidationException：", e);
+    public ResponseEntity<?> handleBizException(BizException e) {
+        log.error("BizException：", e);
         String errorMessage = e.getErrorMessage();
-        return new ResponseEntity<>(new ResultDTO<>(VALIDATION_ERROR.getCode(), errorMessage), HttpStatus.OK);
+        return new ResponseEntity<>(ResultDTO.validateFailed(errorMessage), HttpStatus.OK);
     }
 
     @ExceptionHandler(value = Exception.class)

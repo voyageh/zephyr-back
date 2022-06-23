@@ -4,10 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zephyr.base.constant.BaseEntity;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("basic_user")
 public class User extends BaseEntity {

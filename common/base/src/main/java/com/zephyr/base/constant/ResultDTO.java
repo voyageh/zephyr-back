@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class ResultDTO<T> implements java.io.Serializable {
 
     private long code;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String message;
@@ -20,12 +21,17 @@ public class ResultDTO<T> implements java.io.Serializable {
         this.data = data;
     }
 
-    public static <T> ResultDTO<T> success(T data) {
-        return new ResultDTO<>(ResultCode.SUCCESS.getCode(), data);
+    public ResultDTO(long code, String message) {
+        this.code = code;
+        this.message = message;
     }
 
-    public static <T> ResultDTO<T> success(T data, String message) {
-        return new ResultDTO<>(ResultCode.SUCCESS.getCode(), data, message);
+    public static <T> ResultDTO<T> success() {
+        return new ResultDTO<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage());
+    }
+
+    public static <T> ResultDTO<T> success(T data) {
+        return new ResultDTO<>(ResultCode.SUCCESS.getCode(), data, ResultCode.SUCCESS.getMessage());
     }
 
     public static <T> ResultDTO<T> failed(IErrorCode errorCode) {

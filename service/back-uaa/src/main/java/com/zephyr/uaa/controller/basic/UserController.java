@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Api(value = "user", tags = "用户管理")
 @RestController
 @RequestMapping("/api/user")
@@ -32,13 +34,20 @@ public class UserController {
     @ApiOperation(value = "用户注册")
     @PostMapping("/register")
     public ResultDTO<?> register(@RequestBody @Validated CreateUserDTO createUserDTO) {
-        return ResultDTO.success(userService.register(createUserDTO), "注册成功");
+        return ResultDTO.success(userService.register(createUserDTO));
     }
 
     @ApiOperation(value = "用户登录")
     @PostMapping("/login")
     public ResultDTO<?> login(@RequestBody @Validated LoginDTO loginDTO) {
         return ResultDTO.success(userService.Login(loginDTO));
+    }
+
+    @ApiOperation(value = "用户登出")
+    @PostMapping("/logout")
+    public ResultDTO<?> logout(HttpServletRequest request) {
+        userService.logout(request);
+        return ResultDTO.success();
     }
 
     @GetMapping("/hello")

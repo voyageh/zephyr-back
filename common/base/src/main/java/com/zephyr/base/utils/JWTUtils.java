@@ -1,10 +1,10 @@
-package com.zephyr.security.utils;
+package com.zephyr.base.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -38,7 +38,18 @@ public class JWTUtils {
         }
     }
 
-    public static String getUserName(String token) {
+    public static String getSubject(String token) {
         return JWT.decode(token).getSubject();
+    }
+
+    public static String handleReq(HttpServletRequest request) {
+        // 读取token
+        String authHeader = request.getHeader(AUTHORIZATION);
+        // 判断token格式
+        if (authHeader != null && authHeader.startsWith(TYPE)) {
+            // 得到真正token
+            return authHeader.substring(TYPE.length()).trim();
+        }
+        return null;
     }
 }
